@@ -17,7 +17,7 @@ class ContactTest extends TestCase
 
         $this->withoutExceptionHandling();
 
-        $this->post('/api/contact', $this->contact_array());
+        $response = $this->post('/api/contact', $this->contact_array());
 
         $contact = Contact::first();
 

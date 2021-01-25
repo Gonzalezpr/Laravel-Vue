@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contact;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactController extends Controller
 {
@@ -16,12 +17,16 @@ class ContactController extends Controller
            'company' => 'required',
         ]);
 
-        Contact::insert($validate);
+        $contact = Contact::insert($validate);
+
+        return response($contact, Response::HTTP_CREATED);
     }
 
     public function show($id) {
 
-        return Contact::find($id);
+        $contact =  Contact::find($id);
+
+        return response($contact)->setStatusCode(Response::HTTP_OK);
 
     }
 
@@ -34,12 +39,15 @@ class ContactController extends Controller
             'company' => 'required',
         ]);
 
-        Contact::update($validate)->where(id, $request->input('id'));
+        $contact = Contact::update($validate)->where(id, $request->input('id'));
+
+        return response($contact)->setStatusCode(Response::HTTP_OK);
     }
 
-    public function destroy(Request $request) {
+    public function destroy(Contact $contact) {
 
+        $contact->delete();
 
-        Contact::create();
+        return response([], Response::HTTP_NO_CONTENT);
     }
 }
