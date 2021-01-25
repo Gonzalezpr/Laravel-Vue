@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contact;
 
 class AppController extends Controller
 {
@@ -25,4 +26,6 @@ class AppController extends Controller
     {
         return view('home');
     }
+
+
 }
